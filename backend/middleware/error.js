@@ -1,5 +1,5 @@
 const ErrorHander =require('../utils/errorhander');
-
+// this code is used to hanndle server errors and status code
 module.exports=(err,req,res,next)=>{
     err.statusCode=err.statusCode ||500;
     err.message=err.message  || "Internal Server Error";
