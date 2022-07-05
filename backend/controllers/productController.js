@@ -29,7 +29,7 @@ exports.getAllProduct = async (req, res, next) => {
 exports.getProductDetails = async (req, res, next) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
-        return next(new ErrorHander("Product Not Found ",404))
+        return next(new ErrorHander("Product Not Found ", 404))
     }
 
     res.status(200).json({
@@ -43,10 +43,7 @@ exports.getProductDetails = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
     let product = await Product.findById(req.params.id);
     if (!product) {
-        return res.status(500).json({
-            success: false,
-            message: "Product Not Found",
-        });
+        return next(new ErrorHander("Product Not Found ", 404))
     }
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -67,10 +64,7 @@ exports.deleteProducts = async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
-        return res.status(500).json({
-            success: false,
-            message: "product Not Found"
-        })
+        return next(new ErrorHander("Product Not Found ", 404))
     }
 
     await product.remove();
