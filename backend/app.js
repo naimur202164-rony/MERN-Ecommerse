@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const errorMiddleware = require('./middleware/error');
+if (process.env.NODE_ENV !== "PRODUCTION") {
+    require("dotenv").config({ path: "backend/config/config.env" });
+}
 app.use(express.json())
 
 // Routes Imports
