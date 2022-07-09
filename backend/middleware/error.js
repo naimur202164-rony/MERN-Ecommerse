@@ -9,8 +9,34 @@ module.exports=(err,req,res,next)=>{
         const message=`Resource  not found . Invaild  ${err.path}`;
         err=new ErrorHander(message,400)
     }
+
+
+    // Email duplicate key error
+    if(err.code===11000){
+        const message=`Duplicate  ${Object.keys(err.keyValue)}`
+        err=new ErrorHander(message,400)
+    }
+
+    // Worng JWT Error
+    if(err.name ==="JsonWebTokenError"){
+        const message=`Json web Token is invalid ,try again `;
+
+        err=new ErrorHander(message,400)
+    }
+
+    // JWT EXPIRE ERROR
+    if(err.name==="TokenExpireError"){
+        const message=`JSON web Token is expired ,Try Agin`;
+        err=new ErrorHander(message,400 )
+    }
+
+
+
     res.status(err.statusCode).json({
         success:false,
         message:err.message
-    })
+    });
+
+
+
 }
