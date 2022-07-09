@@ -27,9 +27,8 @@ router
   .route("/admin/users")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUser);
 router
-  .route("admin/user/:id")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleUser);
-
+  .route("/admin/users/:id")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleUser)
 // 3:20min
 router.route("/logout").get(logout);
 
