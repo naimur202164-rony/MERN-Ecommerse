@@ -1,7 +1,15 @@
-import { Button } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { CgMouse } from "react-icons/all";
+import Product from './Product.js'
 import "./Home.css";
+
+const product={
+  name:"Blue Tshirt",
+  images:[{url:"https://i.ibb.co/DRST11n/1.wepp"}],
+  price:"$3000",
+  "_id":"naimur"
+}
+
 
 const Home = () => {
   return (
@@ -18,7 +26,9 @@ const Home = () => {
       </div>
 
       <h2 className="homeHeading">Featured Products</h2>
-      <div className="container" id="container"></div>
+      <div className="container" id="container">
+        <Product product={product}/>
+      </div>
     </>
   );
 };
