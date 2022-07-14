@@ -29,6 +29,27 @@
   width: 9vmax;
   font: 500 1vmax "Roboto";
 }
+.banner > h1 {
+  margin: 5vmax;
+
+  font: 600 2.5vmax "Roboto";
+}
+
+.banner > p {
+  font: 300 1.4vmax "Lucida Sans";
+}
+
+.banner > a > button {
+  margin-bottom: 5vmax;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 0;
+  padding: 1vmax;
+  transition: all 0.5s;
+  width: 9vmax;
+  font: 500 1vmax "Roboto";
+}
 .banner > a > button:hover {
   background-color: rgba(255, 255, 255, 0);
   color: white;
@@ -38,12 +59,12 @@
   content: "";
   width: 100vw;
   height: 100vmin;
-  background-color: #fff;
+  background-color: #ffffff;
   position: absolute;
   top: 0%;
   left: 0;
+  clip-path: polygon(100% 68%, 0 100%, 100% 100%);
   max-width: 100%;
-  clip-path: polygon(100% 77%, 0% 100%, 100% 100%);
 }
 
 .homeHeading {
@@ -56,6 +77,7 @@
   margin: 5vmax auto;
   color: rgb(0, 0, 0, 0.7);
 }
+
 .container {
   display: flex;
   margin: 2vmax auto;
