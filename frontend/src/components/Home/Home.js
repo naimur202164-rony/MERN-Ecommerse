@@ -3,21 +3,15 @@ import { CgMouse } from "react-icons/all";
 import Product from "./Product.js";
 import MetaData from "../layout/MetaData.js";
 import "./Home.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../actions/productAction.js";
 
 
-
-const product = {
-  name: "Blue Tshirt",
-  images: [{ url: "https://i.ibb.co/DRST11n/1.wepp" }],
-  price: "$3000",
-  _id: "naimur",
-};
-
 const Home = () => {
 const dispatch = useDispatch();
+const {loding,error,products,productCount}=useSelector((state)=>state.products);
 
+console.log(products)
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
@@ -37,14 +31,11 @@ const dispatch = useDispatch();
 
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {
+          products && products.map(product=> (
+             <Product key={product._id} product={product}/>
+          ))
+        }
       </div>
     </>
   );
