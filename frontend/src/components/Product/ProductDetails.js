@@ -77,6 +77,14 @@ const ProductDetails = ({ match }) => {
           <button className="submitReview">Submit Review</button>
         </div>
       </div>
+
+
+
+
+      <h3 className="reviewHeading">Reviews</h3>
+
+{/*  */}
+
     </Fragment>
   );
 };
