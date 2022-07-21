@@ -1,34 +1,17 @@
 .banner {
-  background-image: linear-gradient(to right, #635dc0, #3027ae);
+  background-image: url("../../images/cover.jfif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vmin;
   display: flex;
-  text-align: center;
   flex-direction: column;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: white;
 }
 
-.banner > h1 {
-  margin: 5vmax;
-  font: 600 2.5vmax "Roboto";
-}
-
-.banner > p {
-  font: 300 1.4vmax "Lucida  Sans";
-}
-
-.banner > a > button {
-  margin-bottom: 5vmax;
-  cursor: pointer;
-  background-color: #fff;
-  border: 1px solid white;
-  border-radius: 0;
-  padding: 1vmax;
-  transition: all 0.5s;
-  width: 9vmax;
-  font: 500 1vmax "Roboto";
-}
 .banner > h1 {
   margin: 5vmax;
 

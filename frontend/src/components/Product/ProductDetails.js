@@ -20,7 +20,7 @@ const ProductDetails = ({ match }) => {
       dispatch(clearErrors());
     }
     dispatch(getProductDetails(match.params.id));
-  }, [dispatch, match.params.id]);
+  }, [dispatch, match.params.id,error,alert]);
   const options = {
     size: "large",
     value: product.ratings,

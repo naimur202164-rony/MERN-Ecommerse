@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
-const Product = ({ product }) => {
+
+const ProductCard = ({ product }) => {
   const options = {
     value: product.ratings,
     readOnly: true,
@@ -23,4 +24,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductCard;
