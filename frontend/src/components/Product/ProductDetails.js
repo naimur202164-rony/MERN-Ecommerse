@@ -3,6 +3,7 @@ import React, { Fragment, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../actions/productAction";
+import ReviewCard from './ReviewCard.js'
 import "./ProductDetails.css";
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
@@ -73,18 +74,24 @@ const ProductDetails = ({ match }) => {
           <div className="detailsBlock-4">
             Description : <p>{product.description}</p>
           </div>
-
           <button className="submitReview">Submit Review</button>
         </div>
       </div>
 
-
-
-
       <h3 className="reviewHeading">Reviews</h3>
 
-{/*  */}
+      {product.reviews && product.reviews[0] ? (
+        <div className="reviews">
+          {product.reviews &&
+            product.reviews.map((review) => (
+              <ReviewCard review={review}></ReviewCard>
+            ))}
+        </div>
+      ) : (
+        <p className="noReviews">No Reviews Yet</p>
+      )}
 
+      {/*  */}
     </Fragment>
   );
 };
