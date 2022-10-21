@@ -1,5 +1,7 @@
 const app=require('./app');
+const dontenv=require('dotenv');
 
+dontenv.config({path:"backend/config/config.env"})
 
 
 
