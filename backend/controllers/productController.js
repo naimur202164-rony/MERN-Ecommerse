@@ -1,4 +1,5 @@
 const Product = require("../models/productModel");
+const ErrorHander = require("../utils/jwtToken");
 
 // create Product  if admin
 
@@ -66,11 +67,11 @@ exports.deleteProduct = async (req, res, next) => {
 
 exports.getProductDetails = async (req, res, next) => {
   let product = await Product.findById(req.params.id);
+
+
+
   if (!product) {
-    return res.status(500).json({
-      success: false,
-      message: "Product Not Found",
-    });
+      return next(new ErrorHander("Product not Found ",404));
   }
   res.status(200).json({
     success: true,
