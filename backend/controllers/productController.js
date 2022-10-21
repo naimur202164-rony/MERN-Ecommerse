@@ -23,7 +23,7 @@ exports.getAllProducts = async (req, res) => {
 // Update Product --Admin
 
 exports.updateproduct = async (req, res) => {
-  let product = await Product.findById(req.params.id)
+  let product = await Product.findById(req.params.id);
 
   if (!product) {
     return res.status(500).json({
@@ -38,28 +38,43 @@ exports.updateproduct = async (req, res) => {
   });
 
   res.status(200).json({
-    success:true,
-    product
-  })
+    success: true,
+    product,
+  });
 };
 
 // delete Product
 
-exports.deleteProduct=async(req,res,next)=>{
-let product =await Product.findById(req.params.id);
-if(!product){
-  return  res.status(500).json({
-    success:false,
-    message:"Product Not Found"
-  })
-}
+exports.deleteProduct = async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(500).json({
+      success: false,
+      message: "Product Not Found",
+    });
+  }
 
-
-await product.remove();
+  await product.remove();
 
   res.status(200).json({
-    success:true,
-    message:"product Deleted  successfully"
-  })
+    success: true,
+    message: "product Deleted  successfully",
+  });
+};
 
-}
+// Get Product Details
+
+exports.getProductDetails = async (req, res, next) => {
+  let product = await Product.findById(req.params.id);
+  if (!product) {
+    return res.status(500).json({
+      success: false,
+      message: "Product Not Found",
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: "  successfully",
+    product,
+  });
+};
