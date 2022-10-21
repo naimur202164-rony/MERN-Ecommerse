@@ -78,3 +78,4 @@ exports.getProductDetails = async (req, res, next) => {
     product,
   });
 };
+
