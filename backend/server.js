@@ -1,10 +1,14 @@
 const app=require('./app');
 const dontenv=require('dotenv');
-dontenv.config({path:"backend/config/config.env"})
 const  connectDatabase=require('./config/database')
 
 
+
+// Config
+dontenv.config({path:"backend/config/config.env"})
 // Database Connection
+
+
 
 connectDatabase()
 
