@@ -4,13 +4,13 @@ const  connectDatabase=require('./config/database')
 
 process.on("uncaughtException",(err)=>{
     console.log(`Error:${err.message}`);
-    console.log(`Shuting down the server due to unhandled Rejection`)
+    console.log(`Shuting down the server due to unhandled Rejection`);
+    process.exit(1);
 })
 
 // Config
 dontenv.config({path:"backend/config/config.env"})
 // Database Connection
-
 
 
 connectDatabase()
