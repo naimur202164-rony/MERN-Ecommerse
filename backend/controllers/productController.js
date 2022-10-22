@@ -17,7 +17,7 @@ exports.createProducts = catchAsyncErrors(async (req, res, next) => {
 // Get All Products
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
-  const products = await Product.find();
+  const products = await apiFeatures.query;
   res
     .status(200)
     .json({ message: "All Products Loaded ", success: true, products });
