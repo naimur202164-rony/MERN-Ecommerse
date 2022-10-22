@@ -8,4 +8,35 @@ const userSchema = new mongoose.Schema({
     maxLength:[30,"Name can not be larger"],
     minLength:[4,"Name Sould have 4 character"]
   },
+  email:{
+    type:String,
+    required:[true,"Please Enter Your Email"],
+    unique:true,
+    validate:[validators.isEmail,"Please Eenter a valid Email"]
+  },
+  password:{
+    type:String,
+    required:[true,"Please Enter a password"],
+    minLength:[8,"password Sould have 8 character"],
+    select:false
+
+
+  },
+  avater:{
+        public_id:{
+            type:String,
+            required:true
+        },
+        url:{
+            type:String,
+            required:true
+        }
+  },
+
+  role:{
+    type:String,
+    default:"user",
+  },
+  resetPasswordToken :String,
+  
 });
