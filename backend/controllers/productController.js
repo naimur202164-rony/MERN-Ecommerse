@@ -1,5 +1,6 @@
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Product = require("../models/productModel");
+const ApiFeatures = require("../utils/apifeatures");
 const ErrorHander = require("../utils/jwtToken");
 
 // create Product  if admin
@@ -15,8 +16,8 @@ exports.createProducts = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Products
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
+  const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
   const products = await Product.find();
-
   res
     .status(200)
     .json({ message: "All Products Loaded ", success: true, products });
