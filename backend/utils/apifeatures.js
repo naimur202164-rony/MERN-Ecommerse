@@ -18,6 +18,12 @@ class ApiFeatures {
 
     return  this;
   }
+
+  filter(){
+      const queryCopy={...this.queryStr};
+      // Remove Some Filds
+      const removeFileds  =["keyword","page","limit"]
+  }
 }
 
 module.exports = ApiFeatures;
