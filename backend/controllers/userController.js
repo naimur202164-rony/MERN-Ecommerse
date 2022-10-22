@@ -5,52 +5,66 @@ const ErrorHander = require("../utils/jwtToken");
 // Registar Users
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const { name, email, password } = req.body;
 
-  const users = await User.create({
-    name,
-    email,
-    password,
-    avater: {
-      public_id: "This is sample id",
-      url: "this sample Url",
-    },
-  });
-  //   JWT
-  const token = user.getJWToken();
 
-  res.status(201).json({
-    success: true,
-    token,
-    // user,
-  });
+
+  // const { name, email, password } = req.body;
+
+  // const user = await User.create({
+  //   name,
+  //   email,
+  //   password,
+  //   avatar: {
+  //     public_id: myCloud.public_id,
+  //     url: myCloud.secure_url,
+  //   },
+  // });
+
+  // sendToken(user, 201, res);
+
+
+
+
+// V2
+
+
+const { name, email, password } = req.body;
+
+const user = await User.create({
+  name,
+  email,
+  password,
+  avatar: {
+    public_id:"sample-id",
+    url: "Sample-URL",
+  },
+});
+
+sendToken(user, 201, res)
 });
 
 // Login users
-
+// Login User
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
-  // checking user has given  password  and email both
+
+  // checking if user has given password and email both
 
   if (!email || !password) {
-    return next(new ErrorHander("Please Enter Password and Email  ", 400));
+    return next(new ErrorHander("Please Enter Email & Password", 400));
   }
 
-  const user = User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
-    return next(new ErrorHander("Invalid email or Password", 401));
+    return next(new ErrorHander("Invalid email or password", 401));
   }
 
-  const isPasswordMatched = user.comparePassword();
+  const isPasswordMatched = await user.comparePassword(password);
+
   if (!isPasswordMatched) {
-    return next(new ErrorHander("Invalid email or Password", 401));
+    return next(new ErrorHander("Invalid email or password", 401));
   }
-  const token = user.getJWToken();
 
-  res.status(200).json({
-    success: true,
-    token,
-    // user,
-  });
+  sendToken(user, 200, res);
 });

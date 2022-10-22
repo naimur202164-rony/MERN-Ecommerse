@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const ErrorMiddleware = require("./middleware/error");
-const catchAsyncErrors=require('../backend/middleware/catchAsyncErrors');
 // config
 
 app.use(express.json());
