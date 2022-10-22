@@ -1,0 +1,3 @@
+class ApiFeatures{
+    constructor(query)
+}
