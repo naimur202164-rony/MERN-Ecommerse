@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const ErrorHandler = require("../utils/errorhander");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -69,3 +70,16 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 
 
 // Forgot passowrd
+
+
+exports.forgotPassword=catchAsyncErrors(  async(req,res,next)=>{
+  const user  =await User.findOne({
+    email:req.body.email
+  });
+
+
+  if(!user){
+    return next (new ErrorHandler("User  not  found ",404))
+  }
+  // rest TOken
+})
