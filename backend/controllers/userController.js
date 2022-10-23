@@ -66,3 +66,6 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
     messaged: "Loged Out Successfully",
   });
 });
+
+
+// Forgot passowrd
