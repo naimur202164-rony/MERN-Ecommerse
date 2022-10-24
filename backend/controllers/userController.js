@@ -6,6 +6,7 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 const ErrorHandler = require("../utils/errorhander");
+const { Error } = require("mongoose");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -80,49 +81,64 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   }
   // rest TOken reset password toeken;
 
-  const resetToken =   user.getResetPasswordToken();
+  const resetToken = user.getResetPasswordToken();
 
-  await user.save({validateBeforeSave:false});
+  await user.save({ validateBeforeSave: false });
 
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/password/reset/${resetToken}`;
 
-
-  const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
-
-// message
-  const  message=`Your Password  reset token is :-\n\n  ${resetPasswordUrl} \n\n if you have not requseted  this email then  please  ignore it `;
+  // message
+  const message = `Your Password  reset token is :-\n\n  ${resetPasswordUrl} \n\n if you have not requseted  this email then  please  ignore it `;
   try {
     await sendEmail({
-      email:user.email,
-      subject:  `Eccommerce  Password  Recovery`,
+      email: user.email,
+      subject: `Eccommerce  Password  Recovery`,
       message,
-    })
+    });
 
     res.status(200).json({
-      success:true,
-      message:  `Email Send to  ${user.email}  successfuly`
-    })
+      success: true,
+      message: `Email Send to  ${user.email}  successfuly`,
+    });
   } catch (error) {
-      user.resetPasswordToken=undefined;
-      user.resetPasswordExpire=undefined;
-      await user.save({validateBeforeSave:false});
-    return next(new ErrorHander(error.message,500))
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorHander(error.message, 500));
   }
-
-
 });
 
 // Reset passowrd
 
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
- 
+  // creating token  has hash 
+  const resetPasswordToken = (this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex"));
 
+    const user=await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire:{$gt:Date.now()},
+    })
+    if(!user){
+      return next (new ErrorHander("Reset Password Token is not valid has beeen expired",404))
+    }
+
+
+    if(req.body.password !==req.body.cofirmPassword){
+      return next(new   ErrorHander("Password does  not match ",400));
+    }
+
+
+    user.password=req.body.password;
+    user.resetPasswordToken=undefined,
+    user.resetPasswordExpire=undefined,
+
+
+    await user.save();
+    sendToken(user,200,res)
 
 });
-
-
-
-
-
-
-
-
