@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const ErrorHandler = require("../utils/errorhander");
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -174,16 +175,47 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   };
   // We will  addd cloudnary latter
 
-  const user =await  User.findByIdAndUpdate(req.user.id, newUserData, {
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
 
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// Get All Users (--Admin)
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success:true,
+    users
+  });
+
+
+});
+
+// Get Single  Users (--Admin)
+
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+
+
+  if(!user){
+    return next(new ErrorHandler(`User does not  exits  id:${req.params.id}`))
+  }
+
 
 
   res.status(200).json({
     success:true,
+    users
+  });
 
-  })
+  
 });
+
