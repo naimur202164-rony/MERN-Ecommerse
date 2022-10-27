@@ -227,6 +227,7 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
   });
 
   res.status(200).json({
+    user,
     success: true,
   });
 });
@@ -236,12 +237,15 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   // We will remove cloudinary
   if (!user) {
-    return next(new ErrorHander(`User Does not exixts with id ${req.params.id}`));
+    return next(
+      new ErrorHander(`User Does not exixts with id ${req.params.id}`)
+    );
   }
 
-  await user.remove()
+  await user.remove();
 
   res.status(200).json({
     success: true,
+    message: "User deleted successfully",
   });
 });
