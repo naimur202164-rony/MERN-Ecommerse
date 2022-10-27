@@ -15,15 +15,12 @@ router.route("/products").get(getAllProducts);
 
 router
   .route("/product/new")
-  .post(isAuthenticatedUser, createProduct);
+  .post(isAuthenticatedUser, authorizeRoles("admin"), createProduct);
 
 router
   .route("/product/:id")
-  .put(isAuthenticatedUser,updateProduct)
-  .delete(isAuthenticatedUser,  deleteProduct);
+  .put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct)
+  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
 router.route("/product/:id").get(getProductDetails);
-
-
-
 
 module.exports = router;
