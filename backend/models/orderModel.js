@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const orderSchema =  mongoose.Schema({
+const orderSchema = mongoose.Schema({
   shippingInfo: {
     address: {
       type: String,
@@ -62,11 +62,11 @@ const orderSchema =  mongoose.Schema({
   paymentInfo: {
     id: {
       type: String,
-      required: true,
+      // required: true,
     },
     status: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   paidAt: {
