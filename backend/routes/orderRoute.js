@@ -3,6 +3,7 @@ const {
   newOrder,
   getSingleOrder,
   myOrders,
+  getAllOrders,
 } = require("../controllers/orderController");
 const router = express.Router();
 
@@ -15,5 +16,9 @@ router
   .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleOrder);
 
 router.route("/orders/me").get(isAuthenticatedUser, myOrders);
+
+router
+  .route("/admin/orders")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllOrders);
 
 module.exports = router;
