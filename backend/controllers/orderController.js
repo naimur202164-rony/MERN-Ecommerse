@@ -3,7 +3,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apifeatures");
 const Order = require("../models/orderModel");
 
-exports.newOder = catchAsyncErrors(async (req, res, next) => {
+exports.newOrder = catchAsyncErrors(async (req, res, next) => {
   const {
     shipingInfo,
     orderItems,
@@ -27,6 +27,7 @@ exports.newOder = catchAsyncErrors(async (req, res, next) => {
   });
 
   res.status(201).json({
+    message:"order added successfully",
     success: true,
     order,
   });
