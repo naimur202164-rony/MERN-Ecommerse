@@ -191,11 +191,9 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
   const users = await User.find();
   res.status(200).json({
-    success:true,
-    users
+    success: true,
+    users,
   });
-
-
 });
 
 // Get Single  Users (--Admin)
@@ -203,19 +201,12 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
 exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
-
-
-  if(!user){
-    return next(new ErrorHandler(`User does not  exits  id:${req.params.id}`))
+  if (!user) {
+    return next(new ErrorHandler(`User does not  exits  id:${req.params.id}`));
   }
 
-
-
   res.status(200).json({
-    success:true,
-    users
+    success: true,
+    user,
   });
-
-  
 });
-
