@@ -21,7 +21,6 @@ router
   .route("/product/:id")
   .put(isAuthenticatedUser,updateProduct)
   .delete(isAuthenticatedUser,  deleteProduct);
-
 router.route("/product/:id").get(getProductDetails);
 
 
